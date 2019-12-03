@@ -18,5 +18,6 @@
 Route::prefix('/api')->group(function(){
     Route::prefix('/clients')->group(function(){
         Route::get('/','ClientsController@index');
+        Route::post('/','ClientsController@store');
     });
 });

@@ -14,25 +14,14 @@ class ClientsRessource extends JsonResource
      */
     public function toArray($request)
     {
-        $adresse = new AdressesRessource($this->whenLoaded('adresse'));
-        $contact = new ContactsRessource($this->whenLoaded('contact'));
+        $adresse = new AdressesRessource($this->whenLoaded('adresse')); // Ici nous utilisons cette méthode pour renvoyer un "array" solo
+        $contacts = ContactsRessource::collection($this->whenLoaded('contacts')); // Ici nous utilisons cette méthode pour renvoyer un ensemble de ressources
 
         return [
             'id' => $this->id,
             'nom' => $this->nom,
-            'prenom' => $this->prenom,
-            'tel' => $this->tel,
-            'email' => $this->email,
-            'poste' => $this->poste,
-            'adresse' => $this->adresse,
-            'code_postal' => $this->code_postal,
-            'villes' => $this->villes,
-            
-            // 'status' => $status,
             'adresse' => $adresse,
-            'contact' => $contact,
-            'created_at' => (string) $this->created_at,
-            'updated_at' => (string) $this->updated_at,
+            'contacts' => $contacts,
         ];
     }
 }

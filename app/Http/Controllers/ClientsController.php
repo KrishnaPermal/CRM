@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\AdressesModel;
 use App\ClientsModel;
+use App\ContactsModel;
 use App\Http\Resources\ClientsRessource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class ClientsController extends Controller
 {
@@ -15,13 +19,9 @@ class ClientsController extends Controller
      */
     public function index()
     {
-        //get all clients
-        $out = ClientsModel::all();
-        //return clients formatté
-        return ClientsRessource::collection($out);
-
-        $out = Clients::with([
-            'adresses','contact']);
+        $out = ClientsModel::with([
+            'adresse', 'contacts'
+        ])->get();
 
         return ClientsRessource::collection($out);
     }
@@ -36,21 +36,54 @@ class ClientsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        // AJOUTER TOUTES LES DONNÉES
+
+        $array = Validator::make($request->all(), [
+            'nom' => 'required',
+            'prenom' => 'required',
+            'tel' => 'required',
+            'email' => 'required',
+            'poste' => 'required',
+            'adresse' => 'required',
+            'code_postal' => 'required',
+            'villes' => 'required',
+            'nom_entreprise' => 'required',
+        ], ['required' => 'l\'attribut :attribute est requis'])->validate();
+
+
+        $client = [
+            'nom' => $array['nom_entreprise'],
+        ];
+        $contact = [
+            'nom' => $array['nom'],
+            'prenom' => $array['prenom'],
+            'tel' => $array['tel'],
+            'email' => $array['email'],
+            'post' => $array['poste'],
+        ];
+
+        $adresse = [
+            'adresse' => $array['adresse'],
+            'code-postal' => $array['code_postal'],
+            'villes' => $array['villes'],
+        ];
+
+
+        // Permet de faire un rollback et use permet d'utiliser des variables en externes de la fonction
+        DB::transaction(function () use($client,$contact,$adresse) { 
+
+            $adress = AdressesModel::create($adresse);
+            $client = $adress->client()->create($client);
+            $client->contacts()->create($contact);
+        });
+
+        return json_encode($array);
     }
+
+
+
 
     /**
      * Display the specified resource.

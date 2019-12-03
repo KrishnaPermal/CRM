@@ -20,7 +20,7 @@ class ContactsRessource extends JsonResource
             'prenom' => $this->prenom,
             'tel' => $this->tel,
             'email' => $this->email,
-            'poste' => $this->poste,
+            'post' => $this->post,
         ];
     }
 }

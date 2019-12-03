@@ -14,8 +14,16 @@ class ClientsModel extends Model
 
     //Relation  one to one -> adresses
 
-    public function adresses()
+    public function adresse()
     {
         return $this->belongsTo(AdressesModel::class, 'id_adresse');
+    }
+
+    /**
+     * Retourne la liste des contacts donc ont utilise "hasMany" retourne un array (collection);
+     */
+    public function contacts()
+    {
+        return $this->hasMany(ContactsModel::class, 'id_client');
     }
 }
