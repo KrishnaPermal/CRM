@@ -8,7 +8,7 @@ class AdressesModel extends Model
 {
     protected $table = "adresses";
 
-    protected $fillable = ["id", "adresse", "code-postal", "villes"];
+    protected $fillable = ["id", "adresse", "code_postal", "villes"];
 
     public $timestamps = false;
 

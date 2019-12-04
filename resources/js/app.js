@@ -1,17 +1,37 @@
+/**
+ * First, we will load all of this project's Javascript utilities and other
+ * dependencies. Then, we will be ready to develop a robust and powerful
+ * application frontend using useful Laravel and JavaScript libraries.
+ */
+
+import './bootstrap';
 import Vue from 'vue';
-import Vuetify from 'vuetify';
+import Vuetify, {
+    VApp,
+    VRating,
+    VToolbar,
+  } from 'vuetify/lib';
 
-import 'vuetify/dist/vuetify.min.css'
+//Route information for Vue Router
+import Routes from './routes.js';
 
 
-import Layout from './views/Layout.vue';
+//Component File
+import Layout from './layouts/Layout.vue';
 
+Vue.use(Vuetify,{
+    // components: {
+    //     VApp,
+    //   VRating,
+    //   VToolbar,
+    // },
+  });
 
-Vue.use(Vuetify)
-
-var vm = new Vue({
+  const app = new Vue({
     el: '#app',
-    components:{
-        Layout
-    }
+    router: Routes,
+    components:{Layout},
+    Vuetify
 });
+
+export default layout;

@@ -66,7 +66,7 @@ class ClientsController extends Controller
 
         $adresse = [
             'adresse' => $array['adresse'],
-            'code-postal' => $array['code_postal'],
+            'code_postal' => $array['code_postal'],
             'villes' => $array['villes'],
         ];
 

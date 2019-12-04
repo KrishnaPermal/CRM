@@ -11,9 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('app');
-});
 
 Route::prefix('/api')->group(function(){
     Route::prefix('/clients')->group(function(){
@@ -21,3 +18,5 @@ Route::prefix('/api')->group(function(){
         Route::post('/','ClientsController@store');
     });
 });
+
+Route::get('/{any}', 'SinglePageController@index')->where('any', '.*');
