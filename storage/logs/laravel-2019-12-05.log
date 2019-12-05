@@ -1,0 +1,4 @@
+[2019-12-05 06:28:57] local.ERROR: Cannot use variable $client twice {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 64): Cannot use variable $client twice at /home/cyberun-2/Projet/CRM/app/Http/Controllers/ClientsController.php:75)
+[stacktrace]
+#0 {main}
+"} 

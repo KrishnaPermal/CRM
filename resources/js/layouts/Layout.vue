@@ -1,18 +1,16 @@
 <template>
-    <v-app>
-        <v-navigation-drawer app></v-navigation-drawer>
-        <v-toolbar app></v-toolbar>
-        <v-content>
-            <v-container fluid>
-                <router-link tag="li" to="/">Home</router-link>
-                <router-link tag="li" to="/about">About</router-link>
-                <router-link tag="li" to="/clients">Client</router-link>
-                <!--The most important thing here-->
-                <router-view></router-view>
-            </v-container>
-        </v-content>
-        <v-footer app></v-footer>
-    </v-app>
+  <v-container>
+    <v-navigation-drawer app>
+      <router-link tag="li" to="/">Home</router-link>
+      <router-link tag="li" to="/about">About</router-link>
+      <router-link tag="li" to="/clients">Client</router-link>
+    </v-navigation-drawer>
+    <v-content>
+      <!--The most important thing here-->
+      <router-view></router-view>
+    </v-content>
+    <v-footer app></v-footer>
+  </v-container>
 </template>
 <script>
 export default {};

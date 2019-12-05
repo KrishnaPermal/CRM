@@ -54,7 +54,7 @@ class ClientsController extends Controller
 
 
         $client = [
-            'nom' => $array['nom_entreprise'],
+            'nom_entreprise' => $array['nom_entreprise'],
         ];
         $contact = [
             'nom' => $array['nom'],
@@ -70,16 +70,22 @@ class ClientsController extends Controller
             'villes' => $array['villes'],
         ];
 
-
+        $clientM = [];
         // Permet de faire un rollback et use permet d'utiliser des variables en externes de la fonction
-        DB::transaction(function () use($client,$contact,$adresse) { 
+        DB::transaction(function () use ($client, $contact, $adresse, &$clientM) {
 
             $adress = AdressesModel::create($adresse);
-            $client = $adress->client()->create($client);
-            $client->contacts()->create($contact);
+            $clientM = $adress->client()->create($client);
+            $clientM->contacts()->create($contact);
         });
 
-        return json_encode($array);
+        $clientM =  ClientsModel::with([
+            'adresse', 'contacts'
+        ])
+            ->where('id', $clientM->id)
+            ->first();
+
+        return new ClientsRessource($clientM);
     }
 
 

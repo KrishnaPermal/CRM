@@ -8,7 +8,7 @@ class ClientsModel extends Model
 {
     protected $table = "clients";
 
-    protected $fillable = ["id", "nom"];
+    protected $fillable = ["id", "nom_entreprise"];
 
     public $timestamps = false;
 

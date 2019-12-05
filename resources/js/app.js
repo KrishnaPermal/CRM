@@ -6,11 +6,7 @@
 
 import './bootstrap';
 import Vue from 'vue';
-import Vuetify, {
-    VApp,
-    VRating,
-    VToolbar,
-  } from 'vuetify/lib';
+import Vuetify from 'vuetify';
 
 //Route information for Vue Router
 import Routes from './routes.js';
@@ -31,7 +27,7 @@ Vue.use(Vuetify,{
     el: '#app',
     router: Routes,
     components:{Layout},
-    Vuetify
+    vuetify: new Vuetify({})
 });
 
 export default layout;
